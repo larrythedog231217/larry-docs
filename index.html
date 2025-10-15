@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$LARRY Documentation - The Filthiest Ecosystem on Solana</title>
+    <meta name="description" content="Official documentation for $LARRY - A pet-focused crypto ecosystem with real-world utility">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #FFD700;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --card: #1a1a1a;
+            --text: #ffffff;
+            --text-dim: #cccccc;
+            --accent: #ff8c00;
+            --border: rgba(255, 215, 0, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 15px 5%;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 280px;
+            height: calc(100vh - 60px);
+            background: var(--darker);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 30px 20px;
+        }
+
+        .sidebar h3 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        .sidebar h3:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 8px 0;
+        }
+
+        .sidebar a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: var(--gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            padding: 100px 5% 60px;
+            max-width: 1200px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            margin-top: 60px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .intro {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 30px;
+            line-height: 1.9;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--card);
+            border-left: 4px solid var(--gold);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .info-box.warning {
+            border-left-color: #ff4444;
+        }
+
+        .info-box.success {
+            border-left-color: #44ff44;
+        }
+
+        /* Tokenomics Grid */
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .token-item {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--border);
+        }
+
+        .token-percentage {
+            font-size: 3rem;
+            color: var(--gold);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .token-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .token-desc {
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .code-block pre {
+            color: var(--text-dim);
+            white-space: pre-wrap;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: var(--card);
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+        }
+
+        .timeline-date {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-item ul {
+            margin-left: 20px;
+        }
+
+        .timeline-item li {
+            color: var(--text-dim);
+            margin: 8px 0;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--card);
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .faq-q {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .faq-a {
+            color: var(--text-dim);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--darker);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        td {
+            color: var(--text-dim);
+        }
+
+        /* Links */
+        a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            color: var(--text-dim);
+            margin: 8px 0;
+        }
+
+        /* Download Button */
+        .btn-download {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            font-weight: 700;
+            border-radius: 30px;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .sidebar {
+                display: none;
+            }
+            .main {
+                margin-left: 0;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-logo">$LARRY DOCS</div>
+            <div class="nav-links">
+                <a href="https://larrythedog.com" target="_blank">Website</a>
+                <a href="https://t.me/larrypoopgang" target="_blank">Telegram</a>
+                <a href="https://x.com/TheDogLarry" target="_blank">Twitter</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h3>Getting Started</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="#problem">Problem & Solution</a></li>
+        </ul>
+
+        <h3>Tokenomics</h3>
+        <ul>
+            <li><a href="#tokenomics">Distribution</a></li>
+            <li><a href="#contract">Contract Info</a></li>
+            <li><a href="#security">Security</a></li>
+        </ul>
+
+        <h3>Ecosystem</h3>
+        <ul>
+            <li><a href="#larry-token">$LARRY Token</a></li>
+            <li><a href="#lpoop-token">$LPOOP Token</a></li>
+            <li><a href="#loyalty">Loyalty Program</a></li>
+            <li><a href="#media">Media Platform</a></li>
+        </ul>
+
+        <h3>Roadmap</h3>
+        <ul>
+            <li><a href="#roadmap">Timeline</a></li>
+            <li><a href="#milestones">Milestones</a></li>
+        </ul>
+
+        <h3>Guides</h3>
+        <ul>
+            <li><a href="#how-to-buy">How to Buy</a></li>
+            <li><a href="#how-to-store">How to Store</a></li>
+            <li><a href="#how-to-use">How to Use</a></li>
+        </ul>
+
+        <h3>Community</h3>
+        <ul>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#legal">Legal</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Overview Section -->
+        <section id="overview">
+            <h1>$LARRY Documentation</h1>
+            <p class="intro">Welcome to the official documentation for $LARRY - The Filthiest Ecosystem on Solana. This documentation provides comprehensive information about the project, tokenomics, ecosystem, and future development.</p>
+
+            <div class="info-box">
+                <strong>📥 Download Litepaper:</strong> <a href="#" class="btn-download">Download PDF</a>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section id="vision">
+            <h2>Vision</h2>
+            <p>$LARRY is building the first pet-focused cryptocurrency ecosystem that bridges the gap between blockchain technology and real-world utility in the pet industry.</p>
+            
+            <h3>Our Mission</h3>
+            <p>To create a sustainable, community-driven ecosystem that:</p>
+            <ul>
+                <li>Provides real utility through payment integration with pet stores worldwide</li>
+                <li>Engages pet lovers through compelling storytelling and media content</li>
+                <li>Builds a loyalty rewards system that benefits both consumers and retailers</li>
+                <li>Establishes a transparent, community-governed platform</li>
+            </ul>
+
+            <h3>Three Pillars</h3>
+            <div class="tokenomics-grid">
+                <div class="token-item">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">💰</div>
+                    <div class="token-title">FinTech</div>
+                    <div class="token-desc">Crypto payments, loyalty tokens, and financial infrastructure for the pet industry</div>
+                </div>
+                <div class="token-item">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📱</div>
+                    <div class="token-title">Media</div>
+                    <div class="token-desc">Original content, storytelling, NFTs, and entertainment that builds community engagement</div>
+                </div>
+                <div class="token-item">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🏪</div>
+                    <div class="token-title">Retail</div>
+                    <div class="token-desc">Global network of pet stores, loyalty programs, and real-world merchant adoption</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem & Solution -->
+        <section id="problem">
+            <h2>Problem & Solution</h2>
+            
+            <h3>The Problem</h3>
+            <p><strong>Fragmented Pet Industry:</strong> Pet owners face disconnected loyalty programs, limited payment options, and lack of unified rewards across different retailers.</p>
+            <p><strong>Memecoin Fatigue:</strong> Most memecoins have no utility beyond speculation, leading to short-lived projects and disappointed communities.</p>
+            <p><strong>Entertainment Gap:</strong> Pet-focused content lacks interactive, blockchain-integrated storytelling that engages modern audiences.</p>
+
+            <h3>The Larry Solution</h3>
+            <p>$LARRY creates a unified ecosystem that solves these problems through:</p>
+            <ul>
+                <li><strong>Payment Integration:</strong> Seamless crypto payments at partner pet stores worldwide</li>
+                <li><strong>Unified Loyalty:</strong> Single loyalty token ($LPOOP) usable across all partner retailers</li>
+                <li><strong>Engaging Content:</strong> Original storytelling through mininovelas, NFTs, and interactive media</li>
+                <li><strong>Real Utility:</strong> Actual use cases beyond trading - shop, earn, engage</li>
+            </ul>
+        </section>
+
+        <!-- Tokenomics -->
+        <section id="tokenomics">
+            <h2>Tokenomics</h2>
+            
+            <div class="info-box">
+                <strong>Total Supply:</strong> 1,000,000,000 $LARRY<br>
+                <strong>Network:</strong> Solana<br>
+                <strong>Token Standard:</strong> SPL Token<br>
+                <strong>Contract Address:</strong> <span style="color: var(--gold);">TBA - Available at Launch</span>
+            </div>
+
+            <h3>Distribution Breakdown</h3>
+            <div class="tokenomics-grid">
+                <div class="token-item">
+                    <div class="token-percentage">50%</div>
+                    <div class="token-title">🔥 Burned</div>
+                    <div class="token-desc">
+                        <strong>500,000,000 tokens</strong><br>
+                        Sent to burn address at launch<br>
+                        Permanently removed from circulation<br>
+                        Verifiable on Solscan
+                    </div>
+                </div>
+                <div class="token-item">
+                    <div class="token-percentage">25%</div>
+                    <div class="token-title">💧 Liquidity</div>
+                    <div class="token-desc">
+                        <strong>250,000,000 tokens</strong><br>
+                        Locked in Raydium pool<br>
+                        Paired with SOL<br>
+                        Permanent lock - no removal
+                    </div>
+                </div>
+                <div class="token-item">
+                    <div class="token-percentage">15%</div>
+                    <div class="token-title">🎁 Community</div>
+                    <div class="token-desc">
+                        <strong>150,000,000 tokens</strong><br>
+                        Airdrops and rewards<br>
+                        Contest prizes<br>
+                        Vested over 12 months
+                    </div>
+                </div>
+                <div class="token-item">
+                    <div class="token-percentage">10%</div>
+                    <div class="token-title">📢 Marketing</div>
+                    <div class="token-desc">
+                        <strong>100,000,000 tokens</strong><br>
+                        Exchange listings<br>
+                        Partnerships<br>
+                        Vested over 6 months
+                    </div>
+                </div>
+            </div>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>NO TEAM ALLOCATION:</strong> 0% reserved for team/founders</li>
+                <li><strong>NO PRESALE:</strong> Fair launch for everyone</li>
+                <li><strong>NO PRIVATE SALE:</strong> No VC or insider allocations</li>
+                <li><strong>NO TAXES:</strong> 0% buy/sell fees</li>
+                <li><strong>DEFLATIONARY:</strong> 50% burned reduces circulating supply</li>
+            </ul>
+        </section>
+
+        <!-- Contract Info -->
+        <section id="contract">
+            <h2>Contract Information</h2>
+            
+            <div class="code-block">
+                <pre>
+Network: Solana Mainnet
+Token Standard: SPL Token
+Contract Address: [Available at Launch]
+Decimals: 9
+
+Security Features:
+├── Ownership: Renounced at launch
+├── Mint Authority: Disabled
+├── Freeze Authority: Disabled
+└── Liquidity: Locked permanently
+
+Verification:
+├── Solscan: [link after launch]
+├── Solana Explorer: [link after launch]
+└── Jupiter Aggregator: [link after launch]
+                </pre>
+            </div>
+        </section>
+
+        <!-- Security -->
+        <section id="security">
+            <h2>Security Measures</h2>
+            
+            <h3>Smart Contract Security</h3>
+            <ul>
+                <li><strong>Ownership Renounced:</strong> No single entity can control the contract</li>
+                <li><strong>Mint Disabled:</strong> No new tokens can be created</li>
+                <li><strong>Freeze Disabled:</strong> Tokens cannot be frozen in wallets</li>
+                <li><strong>Open Source:</strong> Code available for community review</li>
+            </ul>
+
+            <h3>Liquidity Security</h3>
+            <ul>
+                <li><strong>Permanent Lock:</strong> LP tokens burned, cannot be removed</li>
+                <li><strong>Transparent Pool:</strong> All transactions visible on-chain</li>
+                <li><strong>No Backdoors:</strong> No hidden withdrawal mechanisms</li>
+            </ul>
+
+            <h3>Audit Status</h3>
+            <div class="info-box warning">
+                <strong>⚠️ Important:</strong> Professional audit scheduled for Q1 2026. Community members are encouraged to review the open-source code. A bug bounty program will be announced post-launch.
+            </div>
+        </section>
+
+        <!-- Ecosystem -->
+        <section id="larry-token">
+            <h2>The $LARRY Ecosystem</h2>
+            
+            <h3>$LARRY Token (Primary)</h3>
+            <p>The main currency of the ecosystem used for:</p>
+            <ul>
+                <li><strong>Trading:</strong> Buy, sell, and hold on DEXs and CEXs</li>
+                <li><strong>Payments:</strong> Purchase products at partner pet stores</li>
+                <li><strong>Governance:</strong> Vote on ecosystem decisions (Phase 5)</li>
+                <li><strong>Staking:</strong> Earn rewards and $LPOOP tokens</li>
+                <li><strong>NFT Purchases:</strong> Buy exclusive Larry NFTs and content</li>
+            </ul>
+        </section>
+
+        <section id="lpoop-token">
+            <h3>$LPOOP Token (Utility - Coming Q1 2026)</h3>
+            <p>The loyalty and utility token of the ecosystem:</p>
+            
+            <h4>How to Earn $LPOOP</h4>
+            <ul>
+                <li>Make purchases at partner pet stores using $LARRY</li>
+                <li>Hold $LARRY tokens (staking rewards)</li>
+                <li>Engage with content (watch videos, participate in community)</li>
+                <li>Refer new users to the ecosystem</li>
+            </ul>
+
+            <h4>How to Use $LPOOP</h4>
+            <ul>
+                <li><strong>Discounts:</strong> Get 5-20% off purchases at partner stores</li>
+                <li><strong>Exclusive Access:</strong> Early access to new content and NFT drops</li>
+                <li><strong>Governance:</strong> Enhanced voting power in community decisions</li>
+                <li><strong>Upgrades:</strong> Convert to $LARRY at favorable rates</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>📘 Note:</strong> $LPOOP tokenomics and full specifications will be released in a separate whitepaper in Q4 2025.
+            </div>
+        </section>
+
+        <section id="loyalty">
+            <h3>Loyalty Program</h3>
+            <p>The Larry Loyalty Program connects pet stores worldwide with crypto-native rewards:</p>
+
+            <h4>For Customers:</h4>
+            <ul>
+                <li>Pay with $LARRY at any partner store</li>
+                <li>Earn $LPOOP with every purchase</li>
+                <li>Use $LPOOP for discounts across all partners</li>
+                <li>Accumulate points for exclusive rewards</li>
+            </ul>
+
+            <h4>For Merchants:</h4>
+            <ul>
+                <li>Accept crypto payments with instant settlement</li>
+                <li>Access to engaged pet-owner community</li>
+                <li>Lower transaction fees than traditional cards</li>
+                <li>Marketing support from Larry ecosystem</li>
+            </ul>
+
+            <h4>Launch Timeline:</h4>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2025 - Pilot Program</div>
+                    <ul>
+                        <li>10-20 partner stores in Spain/EU</li>
+                        <li>Beta payment gateway</li>
+                        <li>Community testing</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q1 2026 - Regional Expansion</div>
+                    <ul>
+                        <li>100+ partner stores across Europe</li>
+                        <li>Mobile app launch</li>
+                        <li>$LPOOP token introduction</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2-Q4 2026 - Global Scale</div>
+                    <ul>
+                        <li>1,000+ stores worldwide</li>
+                        <li>Multi-chain integration</li>
+                        <li>Enterprise partnerships</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="media">
+            <h3>Media Platform</h3>
+            <p>Larry's story comes to life through original content:</p>
+
+            <h4>Mininovela Series</h4>
+            <p><strong>"The Outcast"</strong> - Season 1 (8 episodes)</p>
+            <ul>
+                <li>4-5 minute vertical format episodes</li>
+                <li>Weekly releases on TikTok, Instagram, YouTube Shorts</li>
+                <li>Community-driven plot decisions</li>
+                <li>NFT collection tied to key moments</li>
+            </ul>
+
+            <h4>Episode Guide:</h4>
+            <ol>
+                <li><strong>"The Habit"</strong> - Larry's secret revealed</li>
+                <li><strong>"Rejected"</strong> - Exclusion and loneliness</li>
+                <li><strong>"The Wallet"</strong> - Discovery of the cold wallet</li>
+                <li><strong>"Enlightenment"</strong> - Blockchain vision</li>
+                <li><strong>"First Believer"</strong> - Finding community</li>
+                <li><strong>"The Pack"</strong> - Building the movement</li>
+                <li><strong>"Love Interest"</strong> - Larry meets Luna</li>
+                <li><strong>"Acceptance"</strong> - Embracing the weird</li>
+            </ol>
+
+            <h4>NFT Collections</h4>
+            <ul>
+                <li><strong>"Lucky Poops"</strong> - Generative collection of 1,000 unique NFTs</li>
+                <li><strong>"Larry's Journey"</strong> - Key moments from the story</li>
+                <li><strong>"The Pack"</strong> - Character collection (Larry, Luna, others)</li>
+            </ul>
+        </section>
+
+        <!-- Roadmap -->
+        <section id="roadmap">
+            <h2>Roadmap</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 1: "First Sniff" 🐕 (Q4 2025)</div>
+                    <ul>
+                        <li>$LARRY token launch on Solana</li>
+                        <li>DEX listings (Raydium, Jupiter, Orca)</li>
+                        <li>CoinGecko and CoinMarketCap applications</li>
+                        <li>Community building across social platforms</li>
+                        <li>Character and lore development</li>
+                        <li>Viral meme campaign</li>
+                        <li><strong>Target:</strong> 5,000 holders</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 2: "The Story Begins" 📱 (Q1 2026)</div>
+                    <ul>
+                        <li>Launch of mininovela series (Episodes 1-8)</li>
+                        <li>Multi-platform content distribution</li>
+                        <li>"Lucky Poops" NFT collection drop</li>
+                        <li>Strategic partnerships with pet influencers</li>
+                        <li>Holder rewards and airdrops program</li>
+                        <li>Small CEX listings</li>
+                        <li><strong>Target:</strong> 20,000 holders, 1M+ video views</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 3: "Real World Utility" 🏪 (Q2-Q3 2026)</div>
+                    <ul>
+                        <li>Beta launch of loyalty program (10-50 stores)</li>
+                        <li>Payment gateway integration</li>
+                        <li>$LPOOP utility token whitepaper release</li>
+                        <li>Global retail partnership expansion</li>
+                        <li>Interactive community features</li>
+                        <li>Season 2 of mininovela series</li>
+                        <li><strong>Target:</strong> 50,000 holders, 50+ stores</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 4: "The Larry Universe" 🌍 (Q4 2026 - 2027)</div>
+                    <ul>
+                        <li>$LPOOP token launch</li>
+                        <li>Mobile app with payments + loyalty + content</li>
+                        <li>Fashion & merchandise collaboration launch</li>
+                        <li>1,000+ partner stores globally</li>
+                        <li>Expanded media production (full-length content)</li>
+                        <li>Interactive QR-enabled merchandise</li>
+                        <li>Self-sustaining ecosystem achieved</li>
+                        <li><strong>Target:</strong> 100,000 holders, global presence</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Phase 5: "Legendary" 🚀 (2028+)</div>
+                    <ul>
+                        <li>Larry DAO formation (community governance)</li>
+                        <li>Major CEX listings (Binance, Coinbase)</li>
+                        <li>Global pet welfare foundation</li>
+                        <li>Entertainment partnerships (streaming platforms)</li>
+                        <li>Larry becomes a cultural movement</li>
+                        <li>Multi-chain expansion</li>
+                        <li><strong>Vision:</strong> Leading pet-focused crypto ecosystem</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- How To Guides -->
+        <section id="how-to-buy">
+            <h2>How to Buy $LARRY</h2>
+            
+            <h3>Step 1: Get a Solana Wallet</h3>
+            <p>Download one of these wallets:</p>
+            <ul>
+                <li><strong>Phantom</strong> (Recommended) - phantom.app</li>
+                <li><strong>Solflare</strong> - solflare.com</li>
+                <li><strong>Backpack</strong> - backpack.app</li>
+            </ul>
+
+            <h3>Step 2: Buy SOL</h3>
+            <p>Purchase Solana (SOL) from a centralized exchange:</p>
+            <ul>
+                <li><strong>Coinbase</strong> - coinbase.com</li>
+                <li><strong>Binance</strong> - binance.com</li>
+                <li><strong>Kraken</strong> - kraken.com</li>
+                <li><strong>Moonpay</strong> (directly in Phantom)</li>
+            </ul>
+
+            <h3>Step 3: Transfer SOL to Your Wallet</h3>
+            <p>Send the SOL from your exchange to your Phantom wallet address.</p>
+            <div class="info-box warning">
+                <strong>⚠️ Important:</strong> Always send a small test transaction first to verify the address is correct.
+            </div>
+
+            <h3>Step 4: Connect to a DEX</h3>
+            <p>Visit one of these decentralized exchanges:</p>
+            <ul>
+                <li><strong>Raydium</strong> - raydium.io/swap</li>
+                <li><strong>Jupiter</strong> - jup.ag (Recommended for best rates)</li>
+                <li><strong>Orca</strong> - orca.so</li>
+            </ul>
+
+            <h3>Step 5: Swap SOL for $LARRY</h3>
+            <ol>
+                <li>Connect your wallet to the DEX</li>
+                <li>Paste the $LARRY contract address: <strong>[TBA at launch]</strong></li>
+                <li>Enter the amount of SOL you want to swap</li>
+                <li>Review the transaction details</li>
+                <li>Confirm the swap</li>
+                <li>Wait for confirmation (usually 5-10 seconds)</li>
+            </ol>
+
+            <div class="info-box success">
+                <strong>✅ Success!</strong> You now own $LARRY tokens. You can view them in your Phantom wallet.
+            </div>
+        </section>
+
+        <section id="how-to-store">
+            <h2>How to Store $LARRY Safely</h2>
+            
+            <h3>Best Practices</h3>
+            <ul>
+                <li><strong>Hardware Wallets:</strong> For large amounts, consider Ledger or Trezor</li>
+                <li><strong>Seed Phrase Security:</strong> Write down your 12/24 word seed phrase on paper, never digitally</li>
+                <li><strong>Multiple Copies:</strong> Store backup seed phrases in separate secure locations</li>
+                <li><strong>Never Share:</strong> Never give your seed phrase or private keys to anyone</li>
+                <li><strong>Verify Addresses:</strong> Always double-check wallet addresses before sending</li>
+            </ul>
+
+            <h3>Common Scams to Avoid</h3>
+            <div class="info-box warning">
+                <strong>⚠️ Watch Out For:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Fake support accounts asking for seed phrases</li>
+                    <li>Phishing websites with similar URLs</li>
+                    <li>Unsolicited DMs offering "help" or "airdrops"</li>
+                    <li>Fake contract addresses</li>
+                </ul>
+            </div>
+
+            <h3>Official Contract Address</h3>
+            <div class="code-block">
+                <pre>
+Always verify the contract address from official sources:
+├── Official Website: larrythedog.com
+├── Twitter: @TheDogLarry
+├── Telegram: t.me/larrypoopgang
+└── This Documentation: larrythedog.info
+
+Contract Address: [TBA at launch]
+Verify on Solscan: [link after launch]
+                </pre>
+            </div>
+        </section>
+
+        <section id="how-to-use">
+            <h2>How to Use $LARRY in the Ecosystem</h2>
+            
+            <h3>Current Uses (Post-Launch)</h3>
+            <ul>
+                <li><strong>Trading:</strong> Buy and sell on DEXs and CEXs</li>
+                <li><strong>Holding:</strong> Be part of the community and participate in airdrops</li>
+                <li><strong>NFT Purchases:</strong> Buy exclusive Larry NFTs with $LARRY</li>
+                <li><strong>Governance:</strong> Vote on community proposals (coming soon)</li>
+            </ul>
+
+            <h3>Future Uses (Coming 2026)</h3>
+            <ul>
+                <li><strong>Pet Store Payments:</strong> Shop at partner stores using $LARRY</li>
+                <li><strong>Earn $LPOOP:</strong> Get loyalty rewards when shopping</li>
+                <li><strong>Staking:</strong> Lock $LARRY to earn passive rewards</li>
+                <li><strong>Content Access:</strong> Premium content and early episode access</li>
+                <li><strong>Merchandise:</strong> Purchase Larry branded products</li>
+            </ul>
+        </section>
+
+        <!-- Team -->
+        <section id="team">
+            <h2>Team & Community</h2>
+            
+            <h3>Founder</h3>
+            <div class="info-box">
+                <strong>Background:</strong> 15+ years in technology and media production<br>
+                <strong>Expertise:</strong> Content creation, business development, blockchain technology<br>
+                <strong>Vision:</strong> Building sustainable real-world utility in the pet industry through crypto<br>
+                <strong>Location:</strong> Madrid, Spain<br>
+                <strong>Commitment:</strong> Fully doxxed to legal advisors, transparent with community
+            </div>
+
+            <h3>Core Values</h3>
+            <ul>
+                <li><strong>Transparency:</strong> Open communication about development and challenges</li>
+                <li><strong>Community First:</strong> Decisions driven by holder feedback and votes</li>
+                <li><strong>Real Utility:</strong> Building actual use cases, not just hype</li>
+                <li><strong>Long-term Focus:</strong> This is a multi-year project, not a pump and dump</li>
+                <li><strong>Innovation:</strong> Pushing boundaries of what memecoins can achieve</li>
+            </ul>
+
+            <h3>Advisors (Growing)</h3>
+            <p>The team is actively recruiting advisors in:</p>
+            <ul>
+                <li>Blockchain/Solana development</li>
+                <li>Pet industry partnerships</li>
+                <li>Media and entertainment production</li>
+                <li>Payment processing and fintech</li>
+            </ul>
+
+            <h3>Community Roles</h3>
+            <p>Active community members can contribute as:</p>
+            <ul>
+                <li><strong>Moderators:</strong> Help manage social channels</li>
+                <li><strong>Content Creators:</strong> Make memes, videos, art</li>
+                <li><strong>Ambassadors:</strong> Spread the word and onboard new members</li>
+                <li><strong>Translators:</strong> Help create multilingual content</li>
+                <li><strong>Developers:</strong> Contribute to open-source tools</li>
+            </ul>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            
+            <h3>General</h3>
+            
+            <div class="faq-item">
+                <div class="faq-q">What is $LARRY?</div>
+                <div class="faq-a">$LARRY is a Solana-based cryptocurrency token that powers an ecosystem focused on the pet industry. It combines memecoin culture with real-world utility through payment integration, loyalty rewards, and original media content.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Is this just another memecoin?</div>
+                <div class="faq-a">While $LARRY started with memecoin culture and storytelling, it's building toward real utility. The roadmap includes payment gateway integration with pet stores, a loyalty token system, and media production. This is a long-term project with sustainable revenue models.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Why Solana?</div>
+                <div class="faq-a">Solana offers fast transactions, low fees, and a growing ecosystem. For real-world payments at pet stores, transaction speed and cost are critical. Solana's infrastructure makes micro-transactions viable.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">What makes Larry different from other dog coins?</div>
+                <div class="faq-a">Larry has a three-pillar approach: FinTech (payments), Media (content), and Retail (pet stores). Most dog coins focus only on trading. Larry is building an actual ecosystem with revenue streams beyond token appreciation.</div>
+            </div>
+
+            <h3>Technical</h3>
+
+            <div class="faq-item">
+                <div class="faq-q">What is the contract address?</div>
+                <div class="faq-a">The official contract address will be announced at launch and prominently displayed on larrythedog.com, this documentation site, and all official social media channels. Always verify from multiple official sources.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Are there any buy/sell taxes?</div>
+                <div class="faq-a">No. $LARRY has 0% transaction taxes. There are no fees for buying or selling beyond standard blockchain gas fees.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Is the contract audited?</div>
+                <div class="faq-a">A professional audit is scheduled for Q1 2026. The contract code is open source for community review. We encourage technical community members to examine the code and report any concerns.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Is liquidity locked?</div>
+                <div class="faq-a">Yes. Liquidity is permanently locked at launch by burning LP tokens. This means liquidity cannot be removed by anyone, including the team.</div>
+            </div>
+
+            <h3>Tokenomics</h3>
+
+            <div class="faq-item">
+                <div class="faq-q">What is the total supply?</div>
+                <div class="faq-a">1,000,000,000 (1 billion) $LARRY tokens. 50% (500 million) are immediately burned at launch, making the circulating supply effectively 500 million.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Can the team dump tokens?</div>
+                <div class="faq-a">No. There is 0% team allocation. The team does not hold any $LARRY tokens from the initial supply. Community (15%) and Marketing (10%) allocations are vested over 12 and 6 months respectively, preventing sudden dumps.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">What is $LPOOP?</div>
+                <div class="faq-a">$LPOOP is the planned utility and loyalty token (launching Q1 2026). It will be earned through purchases at partner pet stores and used for discounts, rewards, and governance. Full details will be released in a separate whitepaper.</div>
+            </div>
+
+            <h3>Ecosystem</h3>
+
+            <div class="faq-item">
+                <div class="faq-q">When can I use $LARRY at pet stores?</div>
+                <div class="faq-a">The beta payment integration is planned for Q4 2025 with 10-20 pilot stores. Full rollout begins in Q1 2026. Progress updates will be shared regularly with the community.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">How do I earn $LPOOP?</div>
+                <div class="faq-a">Once launched, you can earn $LPOOP by: 1) Shopping at partner stores with $LARRY, 2) Staking $LARRY tokens, 3) Engaging with content, and 4) Referring new users. Detailed earning mechanics will be announced with the $LPOOP whitepaper.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">When does the mininovela series launch?</div>
+                <div class="faq-a">Season 1 "The Outcast" is planned for Q1 2026, with weekly episode releases. Production begins post-token launch, funded by ecosystem growth.</div>
+            </div>
+
+            <h3>Investment</h3>
+
+            <div class="faq-item">
+                <div class="faq-q">Is $LARRY a good investment?</div>
+                <div class="faq-a">$LARRY is a speculative cryptocurrency with high risk. While the project has real utility plans, there are no guarantees of returns. Only invest what you can afford to lose. This is not financial advice.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Where can I track the price?</div>
+                <div class="faq-a">After launch, $LARRY will be listed on CoinGecko, CoinMarketCap, DexScreener, and DexTools. Links will be provided on the official website.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">What exchanges will list $LARRY?</div>
+                <div class="faq-a">Initially, $LARRY will be available on Solana DEXs (Raydium, Jupiter, Orca). Applications to CEXs will begin immediately, with small-to-medium tier exchanges targeted first (MEXC, Gate.io) before pursuing major listings.</div>
+            </div>
+        </section>
+
+        <!-- Legal -->
+        <section id="legal">
+            <h2>Legal Disclaimers</h2>
+            
+            <div class="info-box warning">
+                <h3>Investment Risk Disclosure</h3>
+                <p>$LARRY is a cryptocurrency token with no intrinsic value and no expectation of financial return.</p>
+                
+                <h4>RISKS INCLUDE BUT ARE NOT LIMITED TO:</h4>
+                <ul style="margin-top: 10px;">
+                    <li><strong>Total Loss:</strong> You may lose your entire investment</li>
+                    <li><strong>Volatility:</strong> Cryptocurrency prices can fluctuate wildly</li>
+                    <li><strong>No Guarantees:</strong> Project success is not guaranteed</li>
+                    <li><strong>Regulatory Risk:</strong> Laws may change and impact the project</li>
+                    <li><strong>Smart Contract Risk:</strong> Bugs or exploits could affect holdings</li>
+                    <li><strong>Market Risk:</strong> Crypto markets are highly speculative</li>
+                </ul>
+            </div>
+
+            <h3>Not Financial Advice</h3>
+            <p>Nothing in this documentation or any Larry communication constitutes financial, investment, legal, or tax advice. Consult qualified professionals before making investment decisions.</p>
+
+            <h3>Not a Security</h3>
+            <p>$LARRY is a utility token, not a security. It is not an investment contract, equity, or debt instrument. Token holders have no ownership, profit-sharing rights, or control over the project beyond governance mechanisms.</p>
+
+            <h3>Compliance</h3>
+            <p>$LARRY complies with applicable laws in its jurisdiction. However:</p>
+            <ul>
+                <li>The token may not be available in all jurisdictions</li>
+                <li>Users are responsible for compliance with local laws</li>
+                <li>The project does not guarantee regulatory approval</li>
+                <li>KYC/AML may be required for certain services</li>
+            </ul>
+
+            <h3>No Guarantees</h3>
+            <p>The Larry team makes no guarantees regarding:</p>
+            <ul>
+                <li>Achievement of roadmap milestones</li>
+                <li>Timeline of development</li>
+                <li>Token price or market performance</li>
+                <li>Continued operation of the project</li>
+                <li>Availability of services or partnerships</li>
+            </ul>
+
+            <h3>Forward-Looking Statements</h3>
+            <p>This documentation contains forward-looking statements about future plans and development. Actual results may differ materially due to various factors including market conditions, technical challenges, regulatory changes, and resource availability.</p>
+
+            <h3>Tax Obligations</h3>
+            <p>Token holders are solely responsible for:</p>
+            <ul>
+                <li>Determining tax obligations in their jurisdiction</li>
+                <li>Reporting cryptocurrency transactions</li>
+                <li>Paying applicable taxes</li>
+                <li>Maintaining transaction records</li>
+            </ul>
+
+            <h3>Modification of Terms</h3>
+            <p>The Larry team reserves the right to modify, update, or change this documentation, roadmap, and project plans at any time without notice. Continued participation after changes constitutes acceptance.</p>
+
+            <h3>Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law, the Larry team, contributors, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from use of $LARRY tokens or participation in the ecosystem.</p>
+
+            <h3>Geographic Restrictions</h3>
+            <p>$LARRY tokens may not be available to residents of certain jurisdictions including but not limited to countries under international sanctions. Users must verify their eligibility before participating.</p>
+
+            <div class="info-box">
+                <strong>📅 Last Updated:</strong> October 2025<br>
+                <strong>📧 Legal Contact:</strong> legal@larrythedog.com (coming soon)<br>
+                <strong>📄 Version:</strong> 1.0
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources">
+            <h2>Resources & Links</h2>
+            
+            <h3>Official Channels</h3>
+            <table>
+                <tr>
+                    <th>Platform</th>
+                    <th>Link</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>Website</td>
+                    <td><a href="https://larrythedog.com" target="_blank">larrythedog.com</a></td>
+                    <td>Main website</td>
+                </tr>
+                <tr>
+                    <td>Documentation</td>
+                    <td><a href="https://larrythedog.info" target="_blank">larrythedog.info</a></td>
+                    <td>Technical docs</td>
+                </tr>
+                <tr>
+                    <td>Twitter/X</td>
+                    <td><a href="https://x.com/TheDogLarry" target="_blank">@TheDogLarry</a></td>
+                    <td>News & updates</td>
+                </tr>
+                <tr>
+                    <td>Telegram</td>
+                    <td><a href="https://t.me/larrypoopgang" target="_blank">t.me/larrypoopgang</a></td>
+                    <td>Community chat</td>
+                </tr>
+                <tr>
+                    <td>TikTok</td>
+                    <td>@larrythedogofficial</td>
+                    <td>Short-form content</td>
+                </tr>
+                <tr>
+                    <td>Instagram</td>
+                    <td>@larrythedogofficial</td>
+                    <td>Visual content</td>
+                </tr>
+            </table>
+
+            <h3>Trading & Analytics</h3>
+            <table>
+                <tr>
+                    <th>Platform</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>Raydium (DEX)</td>
+                    <td><a href="https://raydium.io" target="_blank">raydium.io</a></td>
+                </tr>
+                <tr>
+                    <td>Jupiter (Aggregator)</td>
+                    <td><a href="https://jup.ag" target="_blank">jup.ag</a></td>
+                </tr>
+                <tr>
+                    <td>DexScreener</td>
+                    <td>[Available after launch]</td>
+                </tr>
+                <tr>
+                    <td>CoinGecko</td>
+                    <td>[Pending listing]</td>
+                </tr>
+                <tr>
+                    <td>CoinMarketCap</td>
+                    <td>[Pending listing]</td>
+                </tr>
+            </table>
+
+            <h3>Development</h3>
+            <table>
+                <tr>
+                    <th>Resource</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>GitHub</td>
+                    <td>[Coming soon]</td>
+                </tr>
+                <tr>
+                    <td>Smart Contract</td>
+                    <td>[Available at launch]</td>
+                </tr>
+                <tr>
+                    <td>Audit Reports</td>
+                    <td>[Q1 2026]</td>
+                </tr>
+            </table>
+
+            <h3>Brand Assets</h3>
+            <p>Official logos, colors, and brand guidelines for community use:</p>
+            <ul>
+                <li><strong>Primary Logo:</strong> [Download link coming soon]</li>
+                <li><strong>Brand Colors:</strong> Gold (#FFD700), Black (#0a0a0a)</li>
+                <li><strong>Typography:</strong> System fonts, professional and clean</li>
+                <li><strong>Usage Guidelines:</strong> [Coming soon]</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>⚠️ Important:</strong> Only use assets from official sources. Beware of fake logos, scam websites, and impersonators. Always verify URLs and contract addresses.
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Contact & Support</h2>
+            
+            <h3>Community Support</h3>
+            <p>For general questions and community support:</p>
+            <ul>
+                <li><strong>Telegram:</strong> Ask in t.me/larrypoopgang (community moderators available)</li>
+                <li><strong>Twitter:</strong> DM @TheDogLarry for official inquiries</li>
+            </ul>
+
+            <h3>Business Inquiries</h3>
+            <p>For partnerships, media, or business opportunities:</p>
+            <ul>
+                <li><strong>Email:</strong> partnerships@larrythedog.com (coming soon)</li>
+                <li><strong>Apply:</strong> Fill out partnership form on larrythedog.com</li>
+            </ul>
+
+            <h3>Report Issues</h3>
+            <p>To report scams, fake accounts, or security issues:</p>
+            <ul>
+                <li><strong>Security:</strong> security@larrythedog.com (coming soon)</li>
+                <li><strong>Scam Reports:</strong> Use Telegram report feature or contact moderators</li>
+            </ul>
+
+            <div class="info-box warning">
+                <strong>⚠️ Warning:</strong> Larry team members will NEVER:
+                <ul style="margin-top: 10px;">
+                    <li>Ask for your seed phrase or private keys</li>
+                    <li>DM you first offering support</li>
+                    <li>Ask you to send crypto for "verification"</li>
+                    <li>Guarantee returns or promise profits</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim);">
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">$LARRY - Building the Future of Pet-Focused Crypto</p>
+            <p>© 2025 Larry Ecosystem. All rights reserved.</p>
+            <p style="margin-top: 20px; font-size: 0.9rem;">
+                <a href="https://larrythedog.com">Website</a> · 
+                <a href="https://x.com/TheDogLarry">Twitter</a> · 
+                <a href="https://t.me/larrypoopgang">Telegram</a>
+            </p>
+            <p style="margin-top: 30px; font-size: 0.85rem; color: #666;">
+                This documentation is for informational purposes only.<br>
+                Cryptocurrency investments carry high risk. DYOR and invest responsibly.
+            </p>
+        </footer>
+    </main>
+</body>
+</html>
